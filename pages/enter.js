@@ -62,11 +62,11 @@ function SignUp() {
 };
 
 function SignOutButton() {
-  const signOutGoogle = () => {
+  const signOutEmail = () => {
     signOut(auth);
   };
   return (
-    <button onClick={signOutGoogle}>
+    <button onClick={signOutEmail}>
       Sign Out
     </button>
   );

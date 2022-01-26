@@ -315,6 +315,7 @@ input[type="file"] {
 }
 
 .robotContainer {
+  border: 1px solid black;
   width: 300px;
   height: 300px;
   position: relative;
@@ -327,9 +328,95 @@ input[type="file"] {
 }
 
 .robotHead {
-  display: flex;
-  justify-content: center;
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  position: relative;
+  min-height: 73px;
 }
+
+.insideHead {
+  position: relative;
+  z-index: 1;
+}
+
+img.head {
+  z-index: 1;
+}
+
+img.cap {
+  position: absolute;
+  max-height: 40px;
+  max-width: 40px;
+  top: -50%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+img.eyes {
+  max-height: 25px;
+  max-width: 40px;
+  position: absolute;
+  top: 15%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+}
+
+img.mouth {
+  max-height: 25px;
+  max-width: 40px;
+  position: absolute;
+  top: 62%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+}
+
+.leftEar {
+  display: flex;
+  justify-content: flex-end;
+  position: relative;
+}
+
+img.earLeft1 {
+  max-height: 65px;
+  max-width: 40px;
+  position: absolute;
+  top: -30%;
+  right: -3%;
+}
+
+img.earLeft2 {
+  max-height: 50px;
+  max-width: 25px;
+  position: absolute;
+  top: 20%;
+  right: -5%;
+}
+
+.rightEar {
+  display: flex;
+  justify-content: flex-start;
+  position: relative;
+}
+
+img.earRight1 {
+  max-height: 65px;
+  max-width: 40px;
+  position: absolute;
+  top: -30%;
+  left: -3%;
+}
+
+img.earRight2 {
+  max-height: 50px;
+  max-width: 25px;
+  position: absolute;
+  top: 20%;
+  left: -5%;
+}
+
 
 .robotBody {
   display: grid;
