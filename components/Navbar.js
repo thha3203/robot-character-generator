@@ -14,31 +14,29 @@ export default function Navbar({ }) {
 
   return (
     <nav className='navbar'>
-      <span className='webTitle'>Robot Generator</span>
-      <ul>
-        <li>
-          <Link href='/'>
-            <button className='btn-logo'>IRU</button>
-          </Link>
-        </li>
-        {username && (
-          <li>
+      <div className='iruLogo'>
+        <Link href='/'>
+          <button className='btn-logo'>IRU</button>
+        </Link>
+      </div>
+      <div className='webTitle'>
+        <span>Robot Generator</span>
+      </div>
+      <div className='logButtons'>
+      {username && (
+          <>
             <Link href={`/${username}`}>
-            <button className='btn-blue'>{username}</button>
+              <button className='btn-blue'>{username}</button>
             </Link>
-          </li>
+            <button onClick={handleSignOut}>Sign Out</button>
+          </>
         )}
         {!username && (
-          <li>
-            <Link href='/enter'>
-              <button className='btn-blue'>Log in</button>
-            </Link>
-          </li>
+          <Link href='/enter'>
+            <button className='btn-blue'>Log in</button>
+          </Link>
         )}
-      </ul>
-      {username && (
-        <button className='signout' onClick={handleSignOut}>Sign Out</button>
-      )}
+      </div>
     </nav>
   );
 };
