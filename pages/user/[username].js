@@ -1,9 +1,9 @@
 import UserProfile from '../../components/UserProfile.js';
 
-export default function UserProfilePage({ user }) {
+export default function UserProfilePage({ username }) {
   return (
     <main>
-      <UserProfile user={user} />
+      <UserProfile user={username} />
     </main>
   );
 };

@@ -5,15 +5,21 @@ import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } f
 import { UserContext } from '../lib/context.js';
 import { useState, useContext, useCallback, useEffect } from 'react';
 import { doc, getDoc, writeBatch } from 'firebase/firestore';
+import { useRouter } from 'next/router';
 import debounce from 'lodash.debounce';
 
-export default function Enter(props) {
+export default function Login(props) {
   const { user, username } = useContext(UserContext);
+  const router = useRouter();
+
+  const routeHome = () => {
+    router.push('/');
+  }
 
   return (
     <main>
       {user ?
-        !username ? <UsernameForm /> : <SignOutButton />
+        !username ? <UsernameForm /> : <>{routeHome()}</>
         :
         <SignUp />
       }

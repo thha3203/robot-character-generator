@@ -8,6 +8,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "dom-to-image": "^2.6.0",
     "firebase": "^9.6.4",
     "firebaseui": "^6.0.0",
     "lodash.debounce": "^4.0.8",

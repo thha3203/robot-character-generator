@@ -4,6 +4,9 @@ export default function UserProfile({ user }) {
     <div>
       <div className='box-center'>
         <img src='/1-pose-1.png' className='card-img-center' alt='default robot'/>
+        <p>
+          @{user}
+        </p>
       </div>
     </div>
   )

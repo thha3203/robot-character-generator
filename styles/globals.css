@@ -16,6 +16,7 @@ body {
   margin: 0;
   font-family: 'Noto Sans', sans-serif;
   background-color: var(--color-bg);
+  /* background-color: rgb(58, 58, 58); */
   color: var(--color-text);
   margin-top: 50px;
 }
@@ -66,6 +67,7 @@ code {
 .navbar {
   height: 70px;
   width: 100%;
+  /* background: black; */
   background: white;
   color: var(--colors-text);
   position: fixed;
@@ -315,7 +317,7 @@ input[type="file"] {
 }
 
 .robotContainer {
-  border: 1px solid black;
+  background-color: transparent;
   width: 300px;
   height: 300px;
   position: relative;
@@ -327,8 +329,11 @@ input[type="file"] {
   display: block;
 }
 
+.topMargin {
+  height: 45px;
+}
+
 .robotHead {
-  margin-top: 40px;
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   position: relative;
@@ -342,6 +347,16 @@ input[type="file"] {
 
 img.head {
   z-index: 1;
+}
+
+img.bodyItem {
+  z-index: 2;
+  position: absolute;
+  max-height: 30px;
+  max-width: 35px;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 img.cap {
@@ -451,23 +466,10 @@ img.earRight2 {
   justify-content: center;
 }
 
-/* .head {
-  position: absolute;
+.addButton {
   margin: 0;
-  left: 50%;
-  transform: translate(-50%, 0);
 }
 
-.body {
-  position: absolute;
-  top: 25.5%;
-  left: 50%;
-  transform: translate(-50%, 0);
-  border: 1px solid green;
+.previewImg {
+  max-width: 300px;
 }
-
-.armLeft {
-  position: absolute;
-  top: 25.5%;
-  right: 64%;
-} */
