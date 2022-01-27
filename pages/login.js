@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @next/next/no-img-element */
-import { auth, firestore } from '../lib/firebase.js';
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { auth, firestore, googleAuthProvider } from '../lib/firebase.js';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, signInWithPopup } from "firebase/auth";
 import { UserContext } from '../lib/context.js';
 import { useState, useContext, useCallback, useEffect } from 'react';
 import { doc, getDoc, writeBatch } from 'firebase/firestore';
@@ -48,8 +48,12 @@ function SignUp() {
         setError(true);
       });
   };
+  const signInWithGoogle = async (event) => {
+    event.preventDefault();
+    await signInWithPopup(auth, googleAuthProvider);
+  };
   return (
-    <form onSubmit={signUpWithEmail}>
+    <form onSubmit={signUpWithEmail} autoComplete='off'>
       <label>Email</label>
       <input type='email' name='email' required></input>
       <label>Password</label>
@@ -62,6 +66,10 @@ function SignUp() {
       </button>
       <button className='signin' onClick={signInWithEmail}>
         Sign In
+      </button>
+      <button className='btn-google' onClick={signInWithGoogle}>
+        <img src={'/google.png'} alt='google signin'/>
+        Google
       </button>
     </form>
   );
@@ -128,7 +136,7 @@ function UsernameForm() {
     const usernameDoc = doc(firestore, 'usernames', formValue);
     const batch = writeBatch(firestore);
     batch.set(userDoc, { username: formValue });
-    batch.set(usernameDoc, { uid: user.uid });
+    batch.set(usernameDoc, { uid: user.uid, photos: [] });
     await batch.commit();
   }
 
@@ -136,7 +144,7 @@ function UsernameForm() {
     !username && (
       <section>
         <h3>Choose Username</h3>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} autoComplete='off'>
           <input name='username' placeholder='username' value={formValue} onChange={handleChange} />
           <UsernameMessage username={formValue} isValid={isValid} loading={loading}/>
           <button type='submit' className='btn-green' disabled={!isValid}>

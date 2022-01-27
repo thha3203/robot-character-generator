@@ -2,16 +2,20 @@
 /* eslint-disable @next/next/no-img-element */
 
 import Loader from '../components/Loader.js';
-import { auth, storage } from '../lib/firebase.js';
+import { auth, storage, firestore } from '../lib/firebase.js';
+import { doc, updateDoc, arrayUnion, arrayRemove } from 'firebase/firestore';
+import { UserContext } from '../lib/context.js';
 import { ref, uploadString, getDownloadURL } from 'firebase/storage';
-import { useState, useRef } from 'react';
+import { useState, useRef, useContext } from 'react';
 import { useRouter } from 'next/router';
 import domToImage from 'dom-to-image';
 
 export default function Generate() {
   const imageDiv = useRef(null);
-  const [downloadURL, setDownloadURL] = useState(null);
   const router = useRouter();
+  const { username } = useContext(UserContext);
+  const [loading, setLoading] = useState(false);
+  const [added, setAdded] = useState(false);
 
   const [robot, setRobot] = useState({
     head: null,
@@ -31,10 +35,13 @@ export default function Generate() {
   });
 
 
-  const handleImage = (event) => {
+  const handleImage = async (event) => {
     if (auth.currentUser) {
+      setLoading(true);
       const imageName = Date.now();
       const node = imageDiv.current;
+      const userId = auth.currentUser.uid;
+      const userImgRef = doc(firestore, 'usernames', username);
       const scale = 4;
       const style = {
           transform: 'scale('+scale+')',
@@ -51,21 +58,30 @@ export default function Generate() {
 
       domToImage.toPng(node, param)
         .then(dataUrl => {
-          const storageRef = ref(storage, `uploads/${auth.currentUser.uid}/${imageName}.png`);
+          const storageRef = ref(storage, `uploads/${userId}/${imageName}.png`);
           return uploadString(storageRef, dataUrl, 'data_url');
         })
         .then(snapshot => {
-          const pathRef = ref(storage, `uploads/${auth.currentUser.uid}/${imageName}.png`);
+          const pathRef = ref(storage, `uploads/${userId}/${imageName}.png`);
           return getDownloadURL(pathRef);
         })
-        .then(url => {
-          setDownloadURL(url);
+        .then( async (url) => {
+          try {
+            await updateDoc(userImgRef, {
+              photos: arrayUnion(url)
+            });
+            setLoading(false);
+            setAdded(true);
+          } catch (err) {
+            console.log('ERROR UPDATING ARRAY', err);
+          };
         })
         .catch(err => {
           console.log(err);
+          setLoading(false);
         });
     } else {
-      router.push('/enter');
+      router.push('/login');
     };
   };
 
@@ -110,6 +126,11 @@ export default function Generate() {
     setRobot( (curState) => {
       return robot;
     });
+    if (added) {
+      setAdded( (curState) => {
+        return false;
+      });
+    };
   };
 
   return (
@@ -167,7 +188,12 @@ export default function Generate() {
               </div>
           }
         </div>
-        <button className='btn-green addButton' onClick={handleImage}>Add Robot</button>
+        {loading
+          ? <Loader show={true} />
+          : added
+          ? <button className='btn-green addButton' disabled>Added</button>
+          : <button className='btn-green addButton' onClick={handleImage}>Add Robot</button>
+        }
         </>
       )}
     </main>

@@ -21,6 +21,9 @@ export default function Navbar({ }) {
         <Link href='/'>
           <button className='btn-logo'>IRU</button>
         </Link>
+        <Link href='/generate'>
+          <button className='btn-green'>Generate</button>
+        </Link>
       </div>
       <div className='webTitle'>
         <span>Robot Generator</span>
