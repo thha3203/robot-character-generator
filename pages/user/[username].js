@@ -1,36 +1,16 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useRouter } from 'next/router';
-import { auth, firestore } from '../../lib/firebase.js';
+import { firestore } from '../../lib/firebase.js';
 import { doc, getDoc, updateDoc, arrayRemove } from 'firebase/firestore';
 import { useState, useEffect, useContext } from 'react';
 import { UserContext } from '../../lib/context.js';
-import { getIdToken } from 'firebase/auth';
 import Image from 'next/image';
 
-
-export async function getServerSideProps({ query }) {
-  const { username } = query;
-  const usernameDoc = doc(firestore, 'usernames', username);
-  const userData = await getDoc(usernameDoc);
-  if (userData.exists()) {
-    const { photos } = userData.data();
-    return {
-      props: { username, photos }
-    };
-  } else {
-    return {
-      props: {
-        username: 'invalid user',
-        photos: []
-      }
-    };
-  };
-};
-
-export default function UserProfilePage({ username, photos }) {
-  const [photosState, setPhotosState] = useState(photos);
+export default function UserProfilePage() {
+  const { username } = useRouter().query;
+  const [photosState, setPhotosState] = useState([]);
   const currentUser = useContext(UserContext).username;
-  const photosRef = doc(firestore, 'usernames', username);
+  const photosRef = doc(firestore, 'usernames', username || 'null');
 
   const handleDelete = async (event) => {
     let index = event.target.id;
@@ -43,18 +23,24 @@ export default function UserProfilePage({ username, photos }) {
     } catch (error) {
       console.log('ERROR DELETING', error);
     };
-    setPhotosState( (curState) => {
+    setPhotosState(() => {
       return [...updated];
     });
   };
 
-  useEffect( () => {
-    setPhotosState((curState) => {
-      return [...photos];
-    });
+  useEffect(async () => {
+    const usernameDoc = doc(firestore, 'usernames', username || 'null');
+    const userData = await getDoc(usernameDoc);
+    if (userData.exists()) {
+      let { photos } = userData.data();
+      setPhotosState(() => {
+        return [...photos];
+      });
+    };
     return () => {
       setPhotosState([]);
     };
+
   }, [username]);
 
   return (
