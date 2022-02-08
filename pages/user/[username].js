@@ -1,10 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useRouter } from 'next/router';
-import { auth, firestore } from '../../lib/firebase.js';
+import { firestore } from '../../lib/firebase.js';
 import { doc, getDoc, updateDoc, arrayRemove } from 'firebase/firestore';
 import { useState, useEffect, useContext } from 'react';
 import { UserContext } from '../../lib/context.js';
-import { getIdToken } from 'firebase/auth';
 import Image from 'next/image';
 
 
@@ -43,13 +41,13 @@ export default function UserProfilePage({ username, photos }) {
     } catch (error) {
       console.log('ERROR DELETING', error);
     };
-    setPhotosState( (curState) => {
+    setPhotosState(() => {
       return [...updated];
     });
   };
 
-  useEffect( () => {
-    setPhotosState((curState) => {
+  useEffect(() => {
+    setPhotosState(() => {
       return [...photos];
     });
     return () => {
