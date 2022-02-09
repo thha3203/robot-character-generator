@@ -1,6 +1,18 @@
 ## Getting Started
 
-First, run the development server:
+In order to connect the application with Firebase, a project must be created with Firebase first.
+If you haven't created a project on Firebase, you can follow this [Firebase Setup Guide](https://firebase.google.com/docs/web/setup).
+
+Once a Firebase project is created and you've been provided with your project's configuration:
+- Replace the key/value pairs inside firebase.js located in the /lib folder.
+
+On Firebase console, navigate to Authentication tab on the right hand side and add Sign-in method:
+- Email/Password
+- Google
+
+Then enable Firestore Database and Storage.
+
+To begin developing, run the development server:
 
 ```bash
 npm run dev
@@ -18,8 +30,8 @@ The `pages/api` directory is mapped to `/api/*`. Files in this directory are tre
 
 ## Tech Stack
 Front-end
-[![NEXTJS](https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)]
+- ![NEXTJS](https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)
 Back-end
-[![FIREBASE](https://img.shields.io/badge/firebase-ffca28?style=for-the-badge&logo=firebase&logoColor=black)]
+- ![FIREBASE](https://img.shields.io/badge/firebase-ffca28?style=for-the-badge&logo=firebase&logoColor=black)
 Deployment
-[![VERCEL](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)]
+-![VERCEL](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)
