@@ -1,3 +1,6 @@
+## Summary
+Robot Character Generator is a CRUD application that allow users to generate robots with random parts. A user can also authenticate with Firebase Authentication using Email and Password or with Google Authentication. As a user generate their robots, if a robot catch their interest, they can add that robot to their profile dashboard. This data will persist when a user logs back in. A user can also delete a robot from their profile dashboard.
+
 ## Getting Started
 
 In order to connect the application with Firebase, a project must be created with Firebase first.
@@ -29,9 +32,9 @@ You can start editing the page by modifying `pages/index.js`. The page auto-upda
 The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
 ## Tech Stack
-Front-end
-- ![NEXTJS](https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)
-Back-end
-- ![FIREBASE](https://img.shields.io/badge/firebase-ffca28?style=for-the-badge&logo=firebase&logoColor=black)
-Deployment
--![VERCEL](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)
+- Front-end
+  - ![NEXTJS](https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)
+- Back-end
+  - ![FIREBASE](https://img.shields.io/badge/firebase-ffca28?style=for-the-badge&logo=firebase&logoColor=black)
+- Deployment
+  -![VERCEL](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)
