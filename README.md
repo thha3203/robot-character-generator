@@ -38,3 +38,4 @@ The `pages/api` directory is mapped to `/api/*`. Files in this directory are tre
   - ![FIREBASE](https://img.shields.io/badge/firebase-ffca28?style=for-the-badge&logo=firebase&logoColor=black)
 - Deployment
   -![VERCEL](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)
+#
